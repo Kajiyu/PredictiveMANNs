@@ -35,8 +35,14 @@ if __name__ == '__main__':
                     img_paths = glob.glob(img_dir+"*.png")
                     array_list = []
                     for img_path in img_paths:
+                        if ttt == 0:
+                            print(img_path)
                         im = Image.open(img_path).convert("RGB")
                         im = im.resize((img_width, img_height), Image.LANCZOS)
                         data = np.asarray(im)
                         data = data / 255.
                         array_list.append(data.tolist())
+                    array_list = np.array(array_list).astype("float32")
+                    np.save(out_dir+str(ttt)+'.npy', array_list)
+                    print(ttt, img_dir)
+                    ttt = ttt + 1

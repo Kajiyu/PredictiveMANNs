@@ -34,6 +34,7 @@ if __name__ == '__main__':
                     img_dir = base_path + i1 + "/" + i2 + "/" + i3 + "/" + i4 + "/"
                     img_paths = glob.glob(img_dir+"*.png")
                     array_list = []
+                    img_paths = sorted(img_paths)
                     for img_path in img_paths:
                         if ttt == 0:
                             print(img_path)

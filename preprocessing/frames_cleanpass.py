@@ -43,6 +43,7 @@ if __name__ == '__main__':
                         data = data / 255.
                         array_list.append(data.tolist())
                     array_list = np.array(array_list).astype("float32")
-                    np.save(out_dir+str(ttt)+'.npy', array_list)
+                    out_path = os.path.abspath(out_dir+str(ttt)+'.npy')
+                    np.save(out_path, array_list)
                     print(ttt, img_dir)
                     ttt = ttt + 1

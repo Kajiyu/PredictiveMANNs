@@ -17,7 +17,7 @@ param_dict_list = [
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Image Preprocess')
-    parser.add_argument('-base_path', type=str, default='~/data/frames_cleanpass/')
+    parser.add_argument('-base_path', type=str, default='/home/kaji/data/frames_cleanpass/')
     parser.add_argument('-out_dir', type=str, default='/home/kaji/data/frames_cleanpass/np_out/')
     parser.add_argument('-img_width', type=int, default=80)
     parser.add_argument('-img_height', type=int, default=40)

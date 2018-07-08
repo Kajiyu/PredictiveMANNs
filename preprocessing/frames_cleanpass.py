@@ -18,7 +18,7 @@ param_dict_list = [
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Image Preprocess')
     parser.add_argument('-base_path', type=str, default='~/data/frames_cleanpass/')
-    parser.add_argument('-out_dir', type=str, default='~/data/frames_cleanpass/np_out/')
+    parser.add_argument('-out_dir', type=str, default='/home/kaji/data/frames_cleanpass/np_out/')
     parser.add_argument('-img_width', type=int, default=80)
     parser.add_argument('-img_height', type=int, default=40)
     args = parser.parse_args()
@@ -43,7 +43,6 @@ if __name__ == '__main__':
                         data = data / 255.
                         array_list.append(data.tolist())
                     array_list = np.array(array_list).astype("float32")
-                    out_path = os.path.abspath(out_dir+str(ttt)+'.npy')
-                    np.save(out_path, array_list)
+                    np.save(out_dir+str(ttt)+'.npy', array_list)
                     print(ttt, img_dir)
                     ttt = ttt + 1

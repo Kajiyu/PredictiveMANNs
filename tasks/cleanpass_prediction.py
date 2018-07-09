@@ -23,8 +23,8 @@ import torch.optim as optim
 
 from torch.nn.utils import clip_grad_norm
 
-from dnc.predictive_dnc import PDNC
-from dnc.util import *
+from mann.predictive_dnc import PDNC
+from mann.util import *
 
 parser = argparse.ArgumentParser(description='PyTorch Differentiable Neural Computer')
 parser.add_argument('-rnn_type', type=str, default='lstm', help='type of recurrent cells to use for the controller')

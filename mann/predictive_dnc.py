@@ -283,7 +283,7 @@ class PDNC(nn.Module):
         outs[time] = T.cat([outs[time]*ctr_penalty, last_read], 1)
       outs[time] = self.output(outs[time])
       outs[time] = self.net_g(outs[time]) # generate image
-      print(time, outs[time].size())
+      # print(time, outs[time].size())
       # inputs[time] = outs[time]
 
     if self.debug:

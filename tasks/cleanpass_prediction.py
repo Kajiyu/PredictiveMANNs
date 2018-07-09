@@ -181,7 +181,7 @@ if __name__ == '__main__':
             output, (chx, mhx, rv), v = rnn(input_data, (None, mhx, None), reset_experience=False, pass_through_memory=True, flag_list=flag_list)
         else:
             output, (chx, mhx, rv) = rnn(input_data, (None, mhx, None), reset_experience=False, pass_through_memory=True, flag_list=flag_list)
-        loss = criterion((output), target_output)
+        loss = criterion((output), target_output, input_length)
         loss.backward()
 
         T.nn.utils.clip_grad_norm(rnn.parameters(), args.clip)

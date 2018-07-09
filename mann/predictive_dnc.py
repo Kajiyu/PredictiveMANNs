@@ -246,8 +246,12 @@ class PDNC(nn.Module):
       if flag_list is not None:
         if flag_list[time] == 0:
           flag_tsr = T.eye(2)[0].repeat(batch_size, 1)
+          if self.gpu_id != -1:
+            flag_tsr = flag_tsr.cuda()
         else:
           flag_tsr = T.eye(2)[1].repeat(batch_size, 1)
+          if self.gpu_id != -1:
+            flag_tsr = flag_tsr.cuda()
         if flag_list[time] == 2:
           # print(time, inputs[:,time,:,:,:])
           inputs[:,time,:,:,:] = outs[time-1]
@@ -255,6 +259,8 @@ class PDNC(nn.Module):
           print("\n")
       else:
         flag_tsr = T.eye(2)[1].repeat(batch_size, 1)
+        if self.gpu_id != -1:
+          flag_tsr = flag_tsr.cuda()
       # this layer's hidden states
       chx = controller_hidden
       m = mem_hidden

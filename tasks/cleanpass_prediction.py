@@ -177,7 +177,7 @@ if __name__ == '__main__':
         optimizer.zero_grad()
         npy_idx = random.randrange(0, 16)
         input_data, target_output, flag_list = generate_data(batch_size, sequence_max_length, input_length, npy_idx, cuda=args.cuda)
-
+        print(input_data.size())
         if rnn.debug:
             output, (chx, mhx, rv), v = rnn(input_data, (None, mhx, None), reset_experience=False, pass_through_memory=True, flag_list=flag_list)
         else:

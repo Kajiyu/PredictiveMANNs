@@ -106,6 +106,7 @@ def generate_data(
     return var(input_data), var(target_output), flag_list
 
 def criterion(predictions, targets, input_length):
+    print(predictions.size(), targets.size())
     loss = (predictions[:,input_length:,:,:,:].tanh() - targets[:,input_length:,:,:,:])**2
     return T.mean(loss)
 

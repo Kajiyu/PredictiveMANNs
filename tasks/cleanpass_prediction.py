@@ -54,7 +54,7 @@ parser.add_argument('-curriculum_freq', type=int, default=1000, metavar='N', hel
 parser.add_argument('-cuda', type=int, default=-1, help='Cuda GPU ID, -1 for CPU')
 
 parser.add_argument('-iterations', type=int, default=100000, metavar='N', help='total number of iteration')
-parser.add_argument('-summarize_freq', type=int, default=50, metavar='N', help='summarize frequency')
+parser.add_argument('-summarize_freq', type=int, default=10, metavar='N', help='summarize frequency')
 parser.add_argument('-check_freq', type=int, default=2000, metavar='N', help='check point frequency')
 parser.add_argument('-visdom', action='store_true', help='plot memory content on visdom per -summarize_freq steps')
 

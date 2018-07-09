@@ -254,9 +254,9 @@ class PDNC(nn.Module):
             flag_tsr = flag_tsr.cuda()
         if flag_list[time] == 2:
           # print(time, inputs[:,time,:,:,:])
-          inputs[:,time,:,:,:] = outs[time-1]
+          inputs[:,time,:,:,:].data = outs[time-1].data
           # print(time, inputs[:,time,:,:,:])
-          print("\n")
+          # print("\n")
       else:
         flag_tsr = T.eye(2)[1].repeat(batch_size, 1)
         if self.gpu_id != -1:

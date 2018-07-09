@@ -225,7 +225,8 @@ class PDNC(nn.Module):
     controller_hidden, mem_hidden, last_read = self._init_hidden(hx, batch_size, reset_experience)
     if self.skip_memory_reset:
       if self.mem_hidden is not None:
-        mem_hidden = self.mem_hidden
+        for key in mem_hidden.keys():
+          mem_hidden[key].data = self.mem_hidden[key].data
 
     # concat input with last read (or padding) vectors
     inputs = input

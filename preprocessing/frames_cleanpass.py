@@ -41,6 +41,7 @@ if __name__ == '__main__':
                         im = Image.open(img_path).convert("RGB")
                         im = im.resize((img_width, img_height), Image.LANCZOS)
                         data = np.asarray(im)
+                        data = np.moveaxis(data, -1, 0)
                         data = data / 255.
                         array_list.append(data.tolist())
                     array_list = np.array(array_list).astype("float32")

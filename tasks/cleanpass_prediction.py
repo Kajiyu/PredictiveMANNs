@@ -126,7 +126,7 @@ if __name__ == '__main__':
     iterations = args.iterations
     summarize_freq = args.summarize_freq
     check_freq = args.check_freq
-    whole_input_size = (3,80,40)
+    whole_input_size = (3,40,80)
     
     # input_size = output_size = args.input_size
     mem_slot = args.mem_slot

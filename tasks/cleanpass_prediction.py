@@ -159,7 +159,8 @@ if __name__ == '__main__':
     print(rnn)
 
     if args.cuda != -1:
-        rnn = rnn.cuda(args.cuda)
+        rnn = torch.nn.DataParallel(rnn).cuda()
+        # rnn = rnn.cuda(args.cuda)
 
     last_save_losses = []
 

@@ -53,6 +53,7 @@ parser.add_argument('-curriculum_increment', type=int, default=0, metavar='N', h
 parser.add_argument('-curriculum_freq', type=int, default=1000, metavar='N', help='sequence_max_length incrementor per 1K iterations')
 parser.add_argument('-cuda', type=int, default=-1, help='Cuda GPU ID, -1 for CPU')
 
+parser.add_argument('-loss_fn', type=str, default='mse', help='loss function')
 parser.add_argument('-iterations', type=int, default=100000, metavar='N', help='total number of iteration')
 parser.add_argument('-summarize_freq', type=int, default=10, metavar='N', help='summarize frequency')
 parser.add_argument('-check_freq', type=int, default=2000, metavar='N', help='check point frequency')
@@ -109,6 +110,11 @@ def criterion(predictions, targets, input_length):
     # print(predictions.size(), targets.size())
     loss = (predictions[:,input_length:,:,:,:].tanh() - targets[:,input_length:,:,:,:])**2
     return T.mean(loss)
+
+def criterion_bce(predictions, targets, input_length):
+    return T.mean(
+        -1 * F.logsigmoid(predictions[:,input_length:,:,:,:]) * (targets[:,input_length:,:,:,:]) - T.log(1 - F.sigmoid(predictions[:,input_length:,:,:,:]) + 1e-9) * (1 - targets[:,input_length:,:,:,:])
+    )
 
 if __name__ == '__main__':
 
@@ -182,7 +188,10 @@ if __name__ == '__main__':
             output, (chx, mhx, rv), v = rnn(input_data, (None, mhx, None), reset_experience=False, pass_through_memory=True, flag_list=flag_list)
         else:
             output, (chx, mhx, rv) = rnn(input_data, (None, mhx, None), reset_experience=False, pass_through_memory=True, flag_list=flag_list)
-        loss = criterion((output), target_output, input_length)
+        if args.loss_fn == "mse":
+            loss = criterion((output), target_output, input_length)
+        else:
+            loss = criterion_bce((output), target_output, input_length)
         loss.backward()
 
         T.nn.utils.clip_grad_norm(rnn.parameters(), args.clip)
@@ -226,7 +235,7 @@ if __name__ == '__main__':
     print("Finally Loss: ", loss)
     np.save('./args_json/input/cleanpass_step_result.npy', input_data.data[0].cpu().numpy())
     np.save('./args_json/target/cleanpass_step_result.npy', target_output.data[0].cpu().numpy())
-    np.save('./args_json/output/cleanpass_step_result.npy', output.tanh().data[0].cpu().numpy())
+    np.save('./args_json/output/cleanpass_step_result.npy', output.data[0].cpu().numpy())
     np.save('./args_json/read_weights/cleanpass_step_result.npy', v["read_weights"])
     np.save('./args_json/link_matrix/cleanpass_step_result.npy', v["link_matrix"])
     np.save('./args_json/precedence/cleanpass_step_result.npy', v["precedence"])
